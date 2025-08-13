@@ -581,5 +581,28 @@
             </div>
         </div>
     </div>
+    <script>
+        // Toggle this to enable/disable passcode requirement
+        var requirePasscode = true; // Set to false to turn off password prompt
+
+        if (requirePasscode) {
+            (function() {
+                var passcode = "democratize"; // Change this to your desired passcode
+                var entered = false;
+                while (!entered) {
+                    var input = prompt("Enter passcode to view this page:");
+                    if (input === null) {
+                        document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;'>Access denied.</h2>";
+                        break;
+                    }
+                    if (input === passcode) {
+                        entered = true;
+                    } else {
+                        alert("Incorrect passcode. Try again.");
+                    }
+                }
+            })();
+        }
+    </script>
 </body>
 </html>

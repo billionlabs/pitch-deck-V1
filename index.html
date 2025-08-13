@@ -433,11 +433,11 @@
                 
             </div>
             <div class="tech-diagram">
-                    <img src="VFE_Concept.png" alt="Vibrometric Force Estimation Concept Diagram" style="max-width: 100%; height: auto;">
+                    <img id="vfeConceptImg" src="VFE_Concept.png" alt="Vibrometric Force Estimation Concept Diagram" style="max-width: 100%; height: auto; cursor: pointer;">
                 </div>
-            <div class="tech-diagram">
-                <img src="Vibro_Performance.png" alt="Initial Results of Vibro Performance" style="max-width: 100%; height: auto;">
-            </div>
+                <div class="tech-diagram">
+                    <img id="vibroPerformanceImg" src="Vibro_Performance.png" alt="Initial Results of Vibro Performance" style="max-width: 100%; height: auto; cursor: pointer;">
+                </div>
 
             <p style="text-align: center; font-style: italic; color: #64748b;">
                 "We've turned physics into a medical breakthrough - no black boxes, just transparent science."
@@ -692,6 +692,11 @@
     </ul>
 </div>
 
+<div id="imgOverlay" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(30,41,59,0.95);z-index:20000;justify-content:center;align-items:center;">
+    <span id="closeOverlay" style="position:absolute;top:40px;right:60px;font-size:3rem;color:white;cursor:pointer;font-weight:bold;z-index:20001;">&times;</span>
+    <img id="overlayImg" src="" alt="Full Size" style="max-width:90vw;max-height:80vh;border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,0.18);background:white;">
+</div>
+
 <script>
     // Collect all slides
     const slides = document.querySelectorAll('.slide');
@@ -743,6 +748,37 @@
         if (e.key === 'ArrowLeft' && currentSlide > 0) {
             currentSlide--;
             showSlide(currentSlide);
+        }
+    });
+
+    // Overlay image viewer
+    const imgOverlay = document.getElementById('imgOverlay');
+    const overlayImg = document.getElementById('overlayImg');
+    const closeOverlay = document.getElementById('closeOverlay');
+
+    document.getElementById('vfeConceptImg').onclick = function() {
+        overlayImg.src = this.src;
+        imgOverlay.style.display = 'flex';
+    };
+    document.getElementById('vibroPerformanceImg').onclick = function() {
+        overlayImg.src = this.src;
+        imgOverlay.style.display = 'flex';
+    };
+    closeOverlay.onclick = function() {
+        imgOverlay.style.display = 'none';
+        overlayImg.src = '';
+    };
+    // Optional: close overlay on background click or ESC key
+    imgOverlay.onclick = function(e) {
+        if (e.target === imgOverlay) {
+            imgOverlay.style.display = 'none';
+            overlayImg.src = '';
+        }
+    };
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            imgOverlay.style.display = 'none';
+            overlayImg.src = '';
         }
     });
 </script>

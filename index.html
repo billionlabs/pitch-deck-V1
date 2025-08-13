@@ -253,6 +253,72 @@
                 font-size: 3rem;
             }
         }
+
+        .sidebar-index {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 260px;
+            background: #f8fafc;
+            border-right: 2px solid #e2e8f0;
+            padding: 40px 0 0 0;
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.04);
+            /* Add this to allow sidebar scrolling if needed */
+            overflow-y: auto;
+        }
+
+        .sidebar-index h2 {
+            font-size: 1.3rem;
+            color: #4f46e5;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-index ul {
+            list-style: none;
+            padding: 0 0 0 0;
+            margin: 0;
+            /* Add these lines for scrollable index */
+            overflow-y: auto;
+            max-height: calc(100vh - 100px); /* Adjust 100px if your header is taller/shorter */
+        }
+
+        .sidebar-index li {
+            padding: 16px 32px;
+            cursor: pointer;
+            color: #334155;
+            font-size: 1.1rem;
+            border-left: 4px solid transparent;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .sidebar-index li.active,
+        .sidebar-index li:hover {
+            background: #e0e7ef;
+            border-left: 4px solid #4f46e5;
+            color: #4f46e5;
+            font-weight: 600;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar-index {
+                display: none;
+            }
+            .deck-container {
+                margin-left: 0 !important;
+            }
+        }
+        .deck-container {
+            margin-left: 260px;
+            transition: margin-left 0.2s;
+        }
     </style>
 </head>
 <body>
@@ -344,7 +410,6 @@
             </div>
 
             <div class="tech-diagram">
-                
                 <img src="Vibro_Performance.png" alt="Initial Results of Vibro Performance" style="max-width: 100%; height: auto;">
             </div>
 
@@ -582,56 +647,78 @@
             </div>
         </div>
     </div>
-    <script>
-    var requirePasscode = false; // Set to false to turn off password prompt
+    <button id="backSlideBtn" style="position:fixed;bottom:40px;right:140px;z-index:10000;padding:16px 32px;font-size:1.2rem;background:#64748b;color:white;border:none;border-radius:8px;cursor:pointer;">Back</button>
+    <button id="nextSlideBtn" style="position:fixed;bottom:40px;right:40px;z-index:10000;padding:16px 32px;font-size:1.2rem;background:#4f46e5;color:white;border:none;border-radius:8px;cursor:pointer;">Next</button>
 
-    if (requirePasscode) {
-        // Hide the main content until passcode is entered
-        document.body.style.display = "none";
+<div class="sidebar-index">
+    <h2>Slide Index</h2>
+    <ul id="slideIndex">
+        <li>Title</li>
+        <li>The Problem</li>
+        <li>Our Solution</li>
+        <li>Technology Deep Dive</li>
+        <li>Market Opportunity</li>
+        <li>Product Roadmap</li>
+        <li>Competitive Advantage</li>
+        <li>Team & Founder</li>
+        <li>Business Model & Traction</li>
+        <li>The Ask</li>
+    </ul>
+</div>
 
-        window.addEventListener('DOMContentLoaded', function() {
-            var overlay = document.createElement('div');
-            overlay.style.position = 'fixed';
-            overlay.style.top = 0;
-            overlay.style.left = 0;
-            overlay.style.width = '100vw';
-            overlay.style.height = '100vh';
-            overlay.style.background = 'rgba(30,41,59,1)';
-            overlay.style.display = 'flex';
-            overlay.style.flexDirection = 'column';
-            overlay.style.justifyContent = 'center';
-            overlay.style.alignItems = 'center';
-            overlay.style.zIndex = 9999;
+<script>
+    // Collect all slides
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
 
-            overlay.innerHTML = `
-                <div style="background: white; padding: 40px 30px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); text-align: center;">
-                    <h2 style="margin-bottom: 20px; color: #4f46e5;">Enter Passcode</h2>
-                    <input id="passInput" type="password" placeholder="Passcode" style="padding: 10px 16px; font-size: 1.2rem; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 20px; width: 220px;">
-                    <br>
-                    <button id="passBtn" style="padding: 10px 30px; font-size: 1.1rem; background: #4f46e5; color: white; border: none; border-radius: 8px; cursor: pointer;">Submit</button>
-                    <div id="passError" style="color: #ef4444; margin-top: 15px; display: none;">Incorrect passcode. Try again.</div>
-                </div>
-            `;
-
-            document.body.appendChild(overlay);
-            document.body.style.display = "";
-
-            document.getElementById('passBtn').onclick = function() {
-                var pass = document.getElementById('passInput').value;
-                if (pass === "democratize") { // Change to your passcode
-                    overlay.remove();
-                } else {
-                    document.getElementById('passError').style.display = "block";
-                }
-            };
-
-            document.getElementById('passInput').addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    document.getElementById('passBtn').click();
-                }
-            });
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.style.display = (i === index) ? 'block' : 'none';
+        });
+        // Highlight sidebar
+        document.querySelectorAll('#slideIndex li').forEach((li, i) => {
+            li.classList.toggle('active', i === index);
         });
     }
+
+    // Show the first slide initially
+    showSlide(currentSlide);
+
+    // Next button handler
+    document.getElementById('nextSlideBtn').onclick = function() {
+        if (currentSlide < slides.length - 1) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    };
+
+    // Back button handler
+    document.getElementById('backSlideBtn').onclick = function() {
+        if (currentSlide > 0) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    };
+
+    // Sidebar click handler
+    document.querySelectorAll('#slideIndex li').forEach((li, i) => {
+        li.onclick = function() {
+            currentSlide = i;
+            showSlide(currentSlide);
+        };
+    });
+
+    // Optional: allow left/right arrow navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+        if (e.key === 'ArrowLeft' && currentSlide > 0) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    });
 </script>
 </body>
 </html>

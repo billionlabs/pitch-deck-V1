@@ -319,6 +319,30 @@
             margin-left: 260px;
             transition: margin-left 0.2s;
         }
+
+        .physics-flex {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .physics-img {
+            max-width: 220px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        @media (max-width: 900px) {
+    .physics-flex {
+        flex-direction: column;
+        gap: 24px;
+        align-items: stretch;
+    }
+    .physics-img {
+        margin: 0 auto;
+        display: block;
+    }
+}
     </style>
 </head>
 <body>
@@ -391,11 +415,11 @@
             <h2>Our Special Sauce: Vibrometric Force Estimation</h2>
 
             <div style="background: #f8fafc; padding: 30px; border-radius: 15px; margin: 30px 0;">
-                <div style="display: flex; align-items: flex-start; gap: 40px;">
+                <div class="physics-flex">
                     <div style="flex: 1;">
                         <h3>The Physics Behind the Magic</h3>
-                        <p style="font-size: 1.3rem; line-height: 1.7; margin-top: 30px;"></p>
-                            <span class="highlight" style="font-size: 1.5rem;" >Step 1:</span> Phone's vibration motor creates controlled oscillations<br>
+                        <p style="font-size: 1.3rem; line-height: 1.7; margin-top: 30px;">
+                            <span class="highlight" style="font-size: 1.5rem;">Step 1:</span> Phone's vibration motor creates controlled oscillations<br>
                             <span class="highlight" style="font-size: 1.5rem;">Step 2:</span> Finger pressure dampens vibration amplitude<br>
                             <span class="highlight" style="font-size: 1.5rem;">Step 3:</span> Motion sensors detect vibration changes<br>
                             <span class="highlight" style="font-size: 1.5rem;">Step 4:</span> Algorithm converts to precise force measurement<br>
@@ -403,12 +427,14 @@
                         </p>
                     </div>
                     <a href="https://www.nature.com/articles/s41598-024-75025-9" target="_blank" rel="noopener">
-                        <img src="Vibro_Paper.jpg" alt="Vibrometric Paper Figure" style="max-width: 220px; width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);">
-                    </a></a>
+                        <img src="Vibro_Paper.jpg" alt="Vibrometric Paper Figure" class="physics-img">
+                    </a>
                 </div>
-                <img src="VFE_Concept.png" alt="Vibrometric Force Estimation Concept Diagram" style="max-width: 100%; height: auto;">
+                
             </div>
-
+            <div class="tech-diagram">
+                    <img src="VFE_Concept.png" alt="Vibrometric Force Estimation Concept Diagram" style="max-width: 100%; height: auto;">
+                </div>
             <div class="tech-diagram">
                 <img src="Vibro_Performance.png" alt="Initial Results of Vibro Performance" style="max-width: 100%; height: auto;">
             </div>

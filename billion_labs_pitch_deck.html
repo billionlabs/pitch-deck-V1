@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billion Labs - Investor Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        .deck-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 20px;
+            margin: 30px 0;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #4f46e5, #06b6d4, #10b981);
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4f46e5, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 40px;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 20px;
+        }
+
+        p, li {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #475569;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #64748b;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .highlight {
+            color: #4f46e5;
+            font-weight: 600;
+        }
+
+        .large-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #4f46e5;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: #4f46e5;
+        }
+
+        .problem-list {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 6px solid #ef4444;
+            margin: 30px 0;
+        }
+
+        .solution-list {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 6px solid #10b981;
+            margin: 30px 0;
+        }
+
+        .tech-diagram {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            text-align: center;
+            border: 2px solid #cbd5e1;
+        }
+
+        .flow-step {
+            display: inline-block;
+            background: white;
+            padding: 20px 30px;
+            margin: 10px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            font-weight: 600;
+            color: #4f46e5;
+            border: 2px solid #e2e8f0;
+        }
+
+        .arrow {
+            color: #64748b;
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .team-card {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+        }
+
+        .competitive-advantage {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 6px solid #3b82f6;
+            margin: 30px 0;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #4f46e5, #06b6d4);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-section h3 {
+            color: white;
+            font-size: 2rem;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #4f46e5;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .large-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="deck-container">
+        <!-- Slide 1: Title -->
+        <div class="slide" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 600px;">
+            <div class="slide-number">1</div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+                <img src="Full_Color_Logo.png" alt="Billion Labs Logo" style="height: 100px; margin-bottom: 30px;">
+                <p class="subtitle" style="text-align: center;">Democratize Health Monitoring by Turning Every Smartphone into a Medical Device</p>
+                <p style="margin-top: 40px; font-size: 1rem; color: #64748b; text-align: center;">Investor Presentation | 2025</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <div class="slide-number">2</div>
+            <h2>The Problem: Healthcare's Hardware Bottleneck</h2>
+            
+            <div class="problem-list">
+                <h3 style="color: #ef4444; margin-bottom: 25px;">Current Reality</h3>
+                <ul>
+                    <li><strong>1.3 billion people</strong> worldwide need blood pressure monitoring</li>
+                    <li><strong>$50-200</strong> average cost for medical-grade BP monitoring devices</li>
+                    <li><strong>85% of telehealth visits</strong> lack real-time vital sign data</li>
+                    <li><strong>Limited accessibility</strong> - patients need physical devices for basic health monitoring</li>
+                </ul>
+            </div>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <span class="large-number">$350B</span>
+                    <p><strong>Global Telemedicine Market</strong><br>Growing 25% annually</p>
+                </div>
+                <div class="metric-card">
+                    <span class="large-number">6.8B</span>
+                    <p><strong>Smartphone Users</strong><br>Universal hardware platform</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Our Solution -->
+        <div class="slide">
+            <div class="slide-number">3</div>
+            <h2>Our Solution: The Smartphone as Medical Device</h2>
+            
+            <div class="solution-list">
+                <h3 style="color: #10b981; margin-bottom: 25px;">Breakthrough Innovation</h3>
+                <ul>
+                    <li><strong>Calibration-free</strong> blood pressure monitoring using only smartphone sensors</li>
+                    <li><strong>No additional hardware</strong> required - works with any modern smartphone</li>
+                    <li><strong>Physical measurements</strong> - not black-box AI algorithms</li>
+                    <li><strong>FDA regulatory pathway</strong> - towards real medical-grade accuracy</li>
+                </ul>
+            </div>
+
+            <div class="competitive-advantage">
+                <h3>Proprietary Technology Stack</h3>
+                <ul>
+                    <li><strong>NIH-funded research</strong> - 5+ years of development supported under NIH</li>
+                    <li><strong>Multiple patent applications</strong> - strong IP protection</li>
+                    <li><strong>Peer-reviewed publications</strong> - scientifically validated approach</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: Technology Deep Dive -->
+        <div class="slide">
+            <div class="slide-number">4</div>
+            <h2>Our Special Sauce: Vibrometric Force Estimation</h2>
+
+            <div style="background: #f8fafc; padding: 30px; border-radius: 15px; margin: 30px 0;">
+                <div style="display: flex; align-items: flex-start; gap: 40px;">
+                    <div style="flex: 1;">
+                        <h3>The Physics Behind the Magic</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.7; margin-top: 30px;"></p>
+                            <span class="highlight">Step 1:</span> Phone's vibration motor creates controlled oscillations<br>
+                            <span class="highlight">Step 2:</span> Finger pressure dampens vibration amplitude<br>
+                            <span class="highlight">Step 3:</span> Motion sensors detect vibration changes<br>
+                            <span class="highlight">Step 4:</span> Algorithm converts to precise force measurement<br>
+                            <span class="highlight">Step 5:</span> Combined with optical pulse data = Blood Pressure
+                        </p>
+                    </div>
+                    <img src="Vibro_Paper.jpg" alt="Vibrometric Paper Figure" style="max-width: 220px; width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);">
+                </div>
+            </div>
+
+            <div class="tech-diagram">
+                <img src="VFE_Concept.png" alt="Vibrometric Force Estimation Concept Diagram" style="max-width: 100%; height: auto;">
+                <img src="Vibro_Performance.png" alt="Initial Results of Vibro Performance" style="max-width: 100%; height: auto;">
+            </div>
+
+            <p style="text-align: center; font-style: italic; color: #64748b;">
+                "We've turned physics into a medical breakthrough - no black boxes, just transparent science."
+            </p>
+        </div>
+
+        <!-- Slide 5: Market Opportunity -->
+        <div class="slide">
+            <div class="slide-number">5</div>
+            <h2>Market Opportunity: The Vitals API Revolution</h2>
+            
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <span class="large-number">$45B</span>
+                    <p><strong>Remote Patient Monitoring</strong><br>CAGR: 28%</p>
+                </div>
+                <div class="metric-card">
+                    <span class="large-number">$25B</span>
+                    <p><strong>Digital Therapeutics</strong><br>CAGR: 23%</p>
+                </div>
+                <div class="metric-card">
+                    <span class="large-number">$12B</span>
+                    <p><strong>mHealth Apps</strong><br>CAGR: 17%</p>
+                </div>
+            </div>
+
+            <h3>Go-to-Market Strategy: B2B2C Platform</h3>
+            <ul>
+                <li><strong>Healthcare Providers</strong> - Integration with EHR systems for remote monitoring</li>
+                <li><strong>Telehealth Platforms</strong> - Real-time vitals during virtual consultations</li>
+                <li><strong>Digital Health Apps</strong> - API integration for smartphone platforms (i.e. Apple/Google/Samsung/Strava)</li>
+                <li><strong>Pharmaceutical Companies</strong> - Clinical trial monitoring and patient adherence</li>
+                <li><strong>Insurance Companies</strong> - Risk assessment and preventive care programs</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Product Roadmap -->
+        <div class="slide">
+            <div class="slide-number">6</div>
+            <h2>Product Vision: Beyond Blood Pressure</h2>
+            
+            <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); padding: 40px; border-radius: 20px; margin: 30px 0;">
+                <h3 style="text-align: center; color: #0369a1; margin-bottom: 30px;">The Complete Vitals Platform</h3>
+                
+                <div class="metric-grid">
+                    <div style="text-align: center;">
+                        <h4 style="color: #0369a1;">Phase 1: Core Vitals</h4>
+                        <ul style="text-align: left;">
+                            <li>Blood Pressure (Vibro App)</li>
+                            <li>Heart Rate & Pulse</li>
+                            <li>Respiratory Rate</li>
+                        </ul>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #0369a1;">Phase 2: Functional Assessments</h4>
+                        <ul style="text-align: left;">
+                            <li>Mobility & Strength</li>
+                            <li>Arterial Health</li>
+                            <li>Cognitive Function Screening</li>
+                        </ul>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="color: #0369a1;">Phase 3: Advanced Monitoring</h4>
+                        <ul style="text-align: left;">
+                            <li>Continuous Health Tracking</li>
+                            <li>Predictive Health Analytics</li>
+                            <li>Integration with Wearables</li>
+                        </ul>
+                    </div>
+                </div>
+                <img src="Vitals_API.png" alt="Vitals API Platform Diagram" style="width: 100%; max-width: none; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+
+            </div>
+            <div class="cta-section">
+                <h3>Vision: Every Smartphone = Complete Medical Device</h3>
+            </div>
+        </div>
+
+        <!-- Slide 7: Competitive Advantage -->
+        <div class="slide">
+            <div class="slide-number">7</div>
+            <h2>Why We'll Win: Defensible Differentiation</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0;">
+                <div>
+                    <h3 style="color: #ef4444;">Competitors' Limitations</h3>
+                    <div style="background: #fef2f2; padding: 25px; border-radius: 15px; border-left: 4px solid #ef4444;">
+                        <ul>
+                            <li>Require additional hardware ($50-200)</li>
+                            <li>Black-box AI algorithms (not replicable)</li>
+                            <li>Requires frequent calibration</li>
+                            <li>Limited regulatory pathway</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color: #10b981;">Our Advantages</h3>
+                    <div style="background: #f0fdf4; padding: 25px; border-radius: 15px; border-left: 4px solid #10b981;">
+                        <ul>
+                            <li>Zero additional hardware needed</li>
+                            <li>Physics-based measurements (transparent)</li>
+                            <li>Calibration-free</li>
+                            <li>Clear FDA regulatory strategy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="competitive-advantage">
+                <h3>IP Moat & Barriers to Entry</h3>
+                <ul>
+                    <li><strong>Patent Portfolio:</strong> Vibrometric Force Estimation and related technologies</li>
+                    <li><strong>Scientific Validation:</strong> Peer-reviewed research and clinical studies</li>
+                    <li><strong>First-Mover Advantage:</strong> 5+ years of development head start</li>
+                    <li><strong>Regulatory Pathway:</strong> Completed Pre-sub with De Novo </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: Team & Founder -->
+        <div class="slide">
+            <div class="slide-number">8</div>
+            <h2>Our Story: World-Class Digital Health Pioneer</h2>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <h3 style="color: #4f46e5;">Dr. Edward Wang</h3>
+                    <p style="font-weight: 600; color: #64748b; margin-bottom: 20px;">Founder & CEO</p>
+                    <ul>
+                        <li><strong>Tenured Professor</strong> at UC San Diego</li>
+                        <li><strong>Pioneer</strong> in smartphone health sensing</li>
+                        <li><strong>Award-winning</strong> publications in top-tier journals</li>
+                        <li><strong>Licensed IP</strong> to major technology companies</li>
+                        <li><strong>NIH Trailblazer</strong> awardee for digital health research</li>
+                    </ul>
+                </div>
+                
+                <div class="team-card">
+                    <h3 style="color: #4f46e5;">Core Team</h3>
+                    <p style="font-weight: 600; color: #64748b; margin-bottom: 20px;">UCSD Research Alumni</p>
+                    <ul>
+                        <li><strong>5+ years</strong> developing core technology</li>
+                        <li><strong>Multiple PhDs</strong> in relevant disciplines</li>
+                        <li><strong>Published researchers</strong> in digital health</li>
+                        <li><strong>Regulatory experience</strong> with medical devices</li>
+                        <li><strong>Industry connections</strong> in healthcare & tech</li>
+                        <li><strong>NIH Backed</strong> academic partnership and small business funding (>$1M)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #f1f5f9, #e2e8f0); padding: 30px; border-radius: 15px; margin: 30px 0; text-align: center;">
+                <h3 style="color: #334155;">The Mission</h3>
+                <p style="font-size: 1.3rem; font-style: italic; color: #64748b;">
+                    "This isn't just a business - it's Dr. Wang's personal mission to democratize health monitoring for billions of people worldwide."
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Business Model & Traction -->
+        <div class="slide">
+            <div class="slide-number">9</div>
+            <h2>Business Model: Multiple Revenue Streams</h2>
+            
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <h4 style="color: #4f46e5;">API Licensing</h4>
+                    <span class="large-number" style="font-size: 2rem;">$0.10-1.00</span>
+                    <p>Per measurement<br>High-volume, recurring revenue</p>
+                </div>
+                <div class="metric-card">
+                    <h4 style="color: #4f46e5;">Enterprise SaaS</h4>
+                    <span class="large-number" style="font-size: 2rem;">$10K-100K</span>
+                    <p>Annual contracts<br>Healthcare systems & telehealth</p>
+                </div>
+                <div class="metric-card">
+                    <h4 style="color: #4f46e5;">White-Label</h4>
+                    <span class="large-number" style="font-size: 2rem;">$1M+</span>
+                    <p>Custom implementations<br>Large pharma & medical device</p>
+                </div>
+            </div>
+
+            <h3>Current Status & Milestones</h3>
+            <div style="background: #f8fafc; padding: 30px; border-radius: 15px; margin: 20px 0;">
+                <ul>
+                    <li><strong>Technology Validation:</strong> Core IP developed and tested</li>
+                    <li><strong>Regulatory Planning:</strong> FDA Pre-Submission meeting completed and QMS process started</li>
+                    <li><strong>Pilot Partnerships:</strong> Initial discussions with 1 health system and 4 major technology companies</li>
+                    <li><strong>Team Building:</strong> Core technical team growing</li>
+                    <li><strong>Funding Stage:</strong> Seed round to accelerate commercialization</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10: The Ask -->
+        <div class="slide">
+            <div class="slide-number">10</div>
+            <div class="cta-section" style="margin: 0; padding: 80px 60px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h2 style="color: white; text-align: center; margin-bottom: 40px;">The Opportunity</h2>
+                
+                <div style="text-align: center; margin-bottom: 50px;">
+                    <span style="font-size: 4rem; font-weight: 800; display: block; margin-bottom: 20px;">$5M Series A</span>
+                    <p style="color: white; font-size: 1.5rem; margin-bottom: 30px;">To bring medical-grade smartphone vitals to market</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                    <div>
+                        <h4 style="color: #e0f2fe; margin-bottom: 15px;">Use of Funds</h4>
+                        <ul style="text-align: left; ">
+                            <li style="color: white;">FDA regulatory process ($1.5M)</li>
+                            <li style="color: white;">Clinical validation studies ($1.5M)</li>
+                            <li style="color: white;">Engineering & product development ($1M)</li>
+                            <li style="color: white;">Business development & partnerships ($1M)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: #e0f2fe; margin-bottom: 15px;">18-Month Milestones</h4>
+                        <ul style="text-align: left;">
+                            <li style="color: white;">De Novo Clearance for Vibro</li>
+                            <li style="color: white;">3 major partnership agreements</li>
+                            <li style="color: white;">10,000+ validated measurements</li>
+                            <li style="color: white;">Expand to 5 additional vital signs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <h3 style="color: white; margin-bottom: 20px;">Join Us in Democratizing Healthcare</h3>
+                    <p style="color: white; font-size: 1.2rem;">Turn every smartphone into a life-saving medical device</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
